@@ -39,10 +39,12 @@ variable "creds" {
 #Outputs
 output "nomad_public_ips" {
   value = "${google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_ip}"
+
 }
 output "nomad_server_addresses" {
-  value = ${formatlist("ssh://%s", google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_i )}"
+  value = "${formatlist("ssh://%s", google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_ip)}"
 }
+
 output "nomad_private_ips" {
   value = "${google_compute_instance.nomadagent.*.network_interface.0.address}"
 }
