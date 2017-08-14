@@ -24,7 +24,7 @@ resource "google_compute_instance" "nomadagent" {
   ]
 
   disk {
-    image = "google-ubuntu-1502641418"
+    image = "${var.image}"
   }
 
   network_interface {
@@ -36,7 +36,8 @@ resource "google_compute_instance" "nomadagent" {
   }
 
   metadata {
-    sshKeys = "aklaas:${file("/Users/andrewklaas/.ssh/id_rsa.pub")}"
+    //sshKeys = "aklaas:${file("/Users/andrewklaas/.ssh/id_rsa.pub")}"
+    sshKeys = "${var.user}:${var.public_key}"
   }
 
   metadata_startup_script ="${file("scripts/setup_consul_server.sh")}"

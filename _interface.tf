@@ -22,3 +22,11 @@ variable "image" {
 variable "network" {
   type = "string"
 }
+
+variable "user" {
+  type = "string"
+}
+
+variable "public_key" {
+  type = "string"
+}
