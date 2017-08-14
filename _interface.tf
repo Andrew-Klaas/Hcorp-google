@@ -30,3 +30,7 @@ variable "user" {
 variable "public_key" {
   type = "string"
 }
+
+variable "creds" {
+
+}
