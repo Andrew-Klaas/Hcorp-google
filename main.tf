@@ -45,10 +45,6 @@ resource "google_compute_instance" "nomadagent" {
 
 }
 
-output "consul_ui" {
-  value = "http://${google_compute_instance.nomadagent.0.network_interface.0.access_config.0.assigned_nat_ip}:8500/ui/"
-}
-
 resource "google_compute_firewall" "default" {
   name    = "test-firewall"
   network = "default"
