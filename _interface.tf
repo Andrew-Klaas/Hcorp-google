@@ -32,5 +32,20 @@ variable "public_key" {
 }
 
 variable "creds" {
+ type = "string"
+}
 
+
+#Outputs
+output "nomad_public_ips" {
+  value = "${google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_ip}"
+}
+output "nomad_server_addresses" {
+  value = ${formatlist("ssh://%s", google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_i )}"
+}
+output "nomad_private_ips" {
+  value = "${google_compute_instance.nomadagent.*.network_interface.0.address}"
+}
+output "consul_ui" {
+  value = "http://${google_compute_instance.nomadagent.0.network_interface.0.access_config.0.assigned_nat_ip}:8500/ui/"
 }

@@ -61,10 +61,3 @@ resource "google_compute_firewall" "default" {
     ports    = ["22","80", "8080", "1000-2000", "9999", "9998", "8500" ]
   }
 }
-
-output "nomad_public_ips" {
-  value = "${google_compute_instance.nomadagent.*.network_interface.0.access_config.0.assigned_nat_ip}"
-}
-output "nomad_private_ips" {
-  value = "${google_compute_instance.nomadagent.*.network_interface.0.address}"
-}
