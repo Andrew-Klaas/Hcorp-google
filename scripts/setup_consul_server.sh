@@ -362,7 +362,7 @@ echo 'job "app" {
       }
     }
   }
-}'
+}' |  tee -a /tmp/app.nomad
 
 ## Download and unpack spark
 sudo wget -P /ops/examples/spark https://s3.amazonaws.com/nomad-spark/spark-2.1.0-bin-nomad.tgz
