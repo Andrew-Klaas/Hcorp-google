@@ -13,7 +13,7 @@ provider "google" {
 
 resource "google_compute_instance" "nomadagent" {
   name         = "nomadagent${count.index}"
-  machine_type = "n1-standard-4"
+  machine_type = "n1-standard-2"
   count = "3"
   can_ip_forward = true
   zone         = "us-central1-a"
