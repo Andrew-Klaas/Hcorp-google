@@ -32,52 +32,12 @@ echo "advertise {
 sed -e "s/bootstrap_expect = 1/bootstrap_expect = ${cluster_size}/g" /etc/nomad.d/nomad-server.hcl > /tmp/nomad-server.hcl.tmp
 mv /tmp/nomad-server.hcl.tmp /etc/nomad.d/nomad-server.hcl
 
-
 sudo systemctl start consul
 sudo systemctl start nomad
 
 sleep 5s
 
 consul join 10.128.0.2 10.128.0.3 10.128.0.4
-
-
-echo 'job "fabio" {
-  datacenters = ["dc1"]
-  type = "system"
-  update {
-    stagger = "5s"
-    max_parallel = 1
-  }
-
-  group "fabio" {
-    task "fabio" {
-      driver = "exec"
-      config {
-        command = "fabio"
-      }
-
-      artifact {
-        source = "https://s3.amazonaws.com/ak-bucket-1/fabio"
-      }
-
-      resources {
-        cpu = 500
-        memory = 64
-        network {
-          mbits = 1
-
-          port "http" {
-            static = 9999
-          }
-          port "ui" {
-            static = 9998
-          }
-        }
-      }
-    }
-  }
-}
-' | tee -a /tmp/fabio.nomad
 
 echo 'job "hdfs" {
 

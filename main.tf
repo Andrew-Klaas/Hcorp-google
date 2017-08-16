@@ -1,14 +1,7 @@
-terraform {
-  backend "atlas" {
-    name    = "aklaas/google-demo"
-    address = "https://atlas.hashicorp.com"
-  }
-}
-
 provider "google" {
   credentials = "${var.creds}"
   project     = "${var.project}"
-  region      = "us-central1"
+  region      = "${var.region}"
 }
 
 resource "google_compute_instance" "nomadagent" {
@@ -16,7 +9,7 @@ resource "google_compute_instance" "nomadagent" {
   machine_type = "n1-standard-2"
   count = "3"
   can_ip_forward = true
-  zone         = "us-central1-a"
+  zone         = "${var.zone}"
   project     = "${var.project}"
 
   tags = [
@@ -36,11 +29,10 @@ resource "google_compute_instance" "nomadagent" {
   }
 
   metadata {
-    //sshKeys = "aklaas:${file("/Users/andrewklaas/.ssh/id_rsa.pub")}"
     sshKeys = "${var.user}:${var.public_key}"
   }
 
-  metadata_startup_script ="${file("scripts/setup_consul_server.sh")}"
+  metadata_startup_script ="${file("scripts/setup.sh")}"
 
 
 }
